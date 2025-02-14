@@ -36,7 +36,17 @@ namespace ADO.NET._5
                 Console.WriteLine("11. Add new command (with validation)");
                 Console.WriteLine("12. Change existing team data");
                 Console.WriteLine("13. Delete team");
-                Console.WriteLine("14. Exit");
+                Console.WriteLine("14. Add player");
+                Console.WriteLine("15. Add match");
+                Console.WriteLine("16. Show the difference between goals scored and goals conceded for each team");
+                Console.WriteLine("17. Show full match information");
+                Console.WriteLine("18. Show matches for a specific date");
+                Console.WriteLine("19. Show all matches of a specific team");
+                Console.WriteLine("20. Show all players who scored goals on a specific date");
+                Console.WriteLine("21. Add new match (with verification)");
+                Console.WriteLine("22. Change existing match data");
+                Console.WriteLine("23. Delete match");
+                Console.WriteLine("24. Exit");
                 Console.Write("Your choice: ");
 
                 string choice = Console.ReadLine();
@@ -130,7 +140,6 @@ namespace ADO.NET._5
                         string updateCity = Console.ReadLine();
                         dbManager.UpdateTeam(updateName, updateCity);
                         break;
-
                     case "13":
                         Console.Write("Enter the name of the command to delete: ");
                         string deleteName = Console.ReadLine();
@@ -139,6 +148,97 @@ namespace ADO.NET._5
                         dbManager.DeleteTeam(deleteName, deleteCity);
                         break;
                     case "14":
+                        Console.Write("Player's full name: ");
+                        string fullName = Console.ReadLine();
+                        Console.Write("Country: ");
+                        string country = Console.ReadLine();
+                        Console.Write("Player number: ");
+                        int number = int.Parse(Console.ReadLine());
+                        Console.Write("Position: ");
+                        string position = Console.ReadLine();
+                        Console.Write("Team ID: ");
+                        int teamId = int.Parse(Console.ReadLine());
+
+                        dbManager.AddPlayer(new Player
+                        {
+                            FullName = fullName,
+                            Country = country,
+                            Number = number,
+                            Position = position,
+                            TeamId = teamId
+                        });
+                        break;
+                    case "15":
+                        Console.Write("Team ID 1: ");
+                        int team1Id = int.Parse(Console.ReadLine());
+                        Console.Write("Team ID 2: ");
+                        int team2Id = int.Parse(Console.ReadLine());
+                        Console.Write("Number of goals Team 1: ");
+                        int team1Goals = int.Parse(Console.ReadLine());
+                        Console.Write("Number of goals Team 2: ");
+                        int team2Goals = int.Parse(Console.ReadLine());
+                        Console.Write("Goal Scorer ID: ");
+                        int scorerId = int.Parse(Console.ReadLine());
+                        Console.Write("Match date (yyyy-mm-dd): ");
+                        DateTime matchDate = DateTime.Parse(Console.ReadLine());
+                        dbManager.AddMatch(team1Id, team2Id, team1Goals, team2Goals, scorerId, matchDate);
+                        break;
+                    case "16":
+                        dbManager.ShowGoalDifferenceForEachTeam();
+                        break;
+                    case "17":
+                        Console.Write("Enter match ID: ");
+                        int matchId = int.Parse(Console.ReadLine());
+                        dbManager.ShowFullMatchInfo(matchId);
+                        break;
+                    case "18":
+                        Console.Write("Enter the date (yyyy-mm-dd): ");
+                        DateTime date = DateTime.Parse(Console.ReadLine());
+                        dbManager.ShowMatchesByDate(date);
+                        break;
+                    case "19":
+                        Console.Write("Enter the team name: ");
+                        string teamName2 = Console.ReadLine();
+                        dbManager.ShowMatchesByTeam(teamName2);
+                        break;
+                    case "20":
+                        Console.Write("Enter the date (yyyy-mm-dd): ");
+                        DateTime scorerDate = DateTime.Parse(Console.ReadLine());
+                        dbManager.ShowScorersByDate(scorerDate);
+                        break;
+                    case "21":
+                        Console.Write("Team ID 1: ");
+                        int team1Id2 = int.Parse(Console.ReadLine());
+                        Console.Write("Team ID 2: ");
+                        int team2Id2 = int.Parse(Console.ReadLine());
+                        Console.Write("Number of goals Team 1: ");
+                        int team1Goals2 = int.Parse(Console.ReadLine());
+                        Console.Write("Number of goals Team 2: ");
+                        int team2Goals2 = int.Parse(Console.ReadLine());
+                        Console.Write("Goal Scorer ID: ");
+                        int scorerId2 = int.Parse(Console.ReadLine());
+                        Console.Write("Match date (yyyy-mm-dd): ");
+                        DateTime matchDate2 = DateTime.Parse(Console.ReadLine());
+
+                        dbManager.AddMatchWithCheck(team1Id2, team2Id2, team1Goals2, team2Goals2, scorerId2, matchDate2);
+                        break;
+
+                    case "22":
+                        Console.Write("Enter the match ID to edit: ");
+                        int matchId2 = int.Parse(Console.ReadLine());
+                        dbManager.UpdateMatch(matchId2);
+                        break;
+
+                    case "23":
+                        Console.Write("Enter the name of Team 1: ");
+                        string deleteTeam1 = Console.ReadLine();
+                        Console.Write("Enter the name of Team 2: ");
+                        string deleteTeam2 = Console.ReadLine();
+                        Console.Write("Enter the date of the match (yyyy-mm-dd): ");
+                        DateTime deleteDate = DateTime.Parse(Console.ReadLine());
+                        dbManager.DeleteMatch(deleteTeam1, deleteTeam2, deleteDate);
+                        break;
+                    case "24":
                         exit = true;
                         break;
                     default:
